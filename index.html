@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti ❤️</title>
+
+<style>
+:root {
+  --rosa: #ff6b81;
+  --fondo: linear-gradient(135deg, #ff9a9e, #fad0c4);
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--fondo);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Vistas */
+.vista {
+  display: none;
+  min-height: 100vh;
+  padding: 30px 20px;
+}
+
+.activa {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BOTÓN GRANDE INICIAL */
+.boton-inicio {
+  padding: 20px 30px;
+  font-size: 1.3em;
+  border-radius: 30px;
+  border: none;
+  background: white;
+  color: var(--rosa);
+  cursor: pointer;
+  animation: latido 1.5s infinite;
+}
+
+@keyframes latido {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+h1 {
+  font-size: 2.5em;
+  animation: aparecer 2s ease;
+}
+
+h2 {
+  margin-top: 10px;
+}
+
+/* Botones normales */
+button {
+  margin: 10px;
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: none;
+  background: white;
+  color: var(--rosa);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* GALERÍA */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.grid img {
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 14px 35px rgba(0,0,0,0.5);
+}
+
+/* CARTA */
+.carta-container {
+  perspective: 1000px;
+  margin-top: 20px;
+}
+
+.carta-box {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(15px);
+  padding: 30px 25px;
+  border-radius: 25px;
+  max-width: 700px;
+  width: 90%;
+  margin: 0 auto;
+  text-align: left;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff7f7;
+  line-height: 1.8;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  transform-style: preserve-3d;
+  transform: rotateY(-90deg);
+  transition: transform 1s ease;
+}
+
+.carta-box.activa {
+  transform: rotateY(0deg);
+}
+
+/* Botón en carta */
+.carta-box + button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.85);
+  color: var(--rosa);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Animaciones generales */
+@keyframes aparecer {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Corazones */
+.corazon {
+  position: fixed;
+  bottom: -10px;
+  animation: subir 5s linear infinite;
+}
+
+@keyframes subir {
+  to { transform: translateY(-100vh); opacity: 0; }
+}
+
+/* Media queries */
+@media (min-width: 600px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 900px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<audio id="musica" loop>
+  <source src="ab.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PANTALLA SORPRESA -->
+<div class="vista activa" id="sorpresa">
+  <h1>Tengo algo para ti 💖</h1>
+  <button class="boton-inicio" onclick="iniciar()">Abrir sorpresa 🎁</button>
+</div>
+
+<!-- INICIO -->
+<div class="vista" id="inicio">
+  <h1>Feliz 1 Año ❤️</h1>
+  <p id="textoInicio"></p>
+
+  <button onclick="cambiar('galeria')">Nuestros recuerdos 📸</button>
+  <button onclick="leerCarta()">Leer carta 💌</button>
+</div>
+
+<!-- GALERÍA -->
+<div class="vista" id="galeria">
+  <h2>Nuestros 12 meses 💕</h2>
+  <div class="grid">
+    <img src="marzo1.png">
+    <img src="abril.png">
+    <img src="mayo1.png">
+    <img src="junio.jpg">
+    <img src="julio.jpg">
+    <img src="agosto.jpg">
+    <img src="Septiembre.jpg">
+    <img src="octubre.jpg">
+    <img src="noviembre.png">
+    <img src="diciembre.jpg">
+    <img src="enero.jpg">
+    <img src="febrero.jpg">
+    <img src="marzo.png">
+    <img src="1.jpg">
+    <img src="2.jpg">
+    <img src="3.jpg">
+    <img src="4.jpg">
+  </div>
+  <button onclick="cambiar('inicio')">Volver</button>
+</div>
+
+<!-- CARTA -->
+<div class="vista" id="carta">
+  <h2>Para ti 💌</h2>
+  <div class="carta-container">
+    <div class="carta-box" id="cartaBox">
+      <p id="textoCarta"></p>
+    </div>
+  </div>
+  <button onclick="cambiar('inicio')">Volver</button>
+</div>
+
+<script>
+// CAMBIAR VISTAS
+function cambiar(vista) {
+  document.querySelectorAll('.vista').forEach(v => v.classList.remove('activa'));
+  document.getElementById(vista).classList.add('activa');
+}
+
+// INICIAR EXPERIENCIA
+function iniciar() {
+  const audio = document.getElementById("musica");
+  audio.play();
+  cambiar('inicio');
+
+  escribirTexto("textoInicio",
+    "Hola mi amor 💕\n\nEste año contigo ha sido el mejor de mi vida...\nGracias por todo lo que hemos vivido juntos 💖"
+  );
+}
+
+// EFECTO ESCRITURA
+function escribirTexto(id, texto) {
+  let i = 0;
+  const velocidad = 40;
+  const elemento = document.getElementById(id);
+  elemento.innerHTML = "";
+  function escribir() {
+    if (i < texto.length) {
+      elemento.innerHTML += texto.charAt(i);
+      i++;
+      setTimeout(escribir, velocidad);
+    }
+  }
+  escribir();
+}
+
+// LEER CARTA
+function leerCarta() {
+  cambiar('carta');
+  const carta = document.getElementById("cartaBox");
+  carta.classList.remove("activa");
+  setTimeout(() => carta.classList.add("activa"), 100);
+
+  const textoCarta = 
+
+`Hola mi niña de ojitos lindos 💖<br><br>
+¡Felices 1 añito juntos! 🥰<br><br>
+Amor mío, estoy tan feliz de tenerte y de todo el amor que sentimos.<br>
+Cada detalle de ti me encanta demasiado, y nuestra conexión es tan especial.<br><br>
+Aún recuerdo la primera vez que te vi llegar, toda hermosa para la banquita,<br>
+y tomarnos de la manita… qué lindo momento 💕.<br><br>
+Hemos compartido tantas cosas hermosas juntos,<br>
+y en cada una de ellas te amo con toda el alma.<br>
+Estoy tan feliz de que seamos nosotros, una pareja tan linda.<br>
+A pesar de los malos ratos, arreglamos cada detalle y mejoramos día a día.<br><br>
+Cada momento a tu lado es un recuerdo precioso,<br>
+y quiero seguir construyendo muchos más juntos mi vida 🌸.<br><br>
+Te amo muchísimo ❤️`;
+
+
+  escribirTexto("textoCarta", textoCarta);
+
+
+  
+}
+function escribirTexto(id, texto) {
+  let i = 0;
+  const velocidad = 40;
+  const elemento = document.getElementById(id);
+  elemento.innerHTML = "";
+  function escribir() {
+    if (i < texto.length) {
+      // Esto permite que los <br> se rendericen como saltos de línea
+      elemento.innerHTML += texto.charAt(i);
+      i++;
+      setTimeout(escribir, velocidad);
+    }
+  }
+  escribir();
+}
+// CORAZONES
+setInterval(() => {
+  const c = document.createElement("div");
+  c.className = "corazon";
+  c.innerHTML = "💖";
+  c.style.left = Math.random() * 100 + "vw";
+  c.style.fontSize = (Math.random() * 25 + 15) + "px";
+  document.body.appendChild(c);
+  setTimeout(() => c.remove(), 5000);
+}, 400);
+</script>
+
+</body>
+</html>
